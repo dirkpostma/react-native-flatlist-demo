@@ -1,6 +1,6 @@
 # FlatList demo
 
-What is wrong? On iOS, way too many rerenders occur.
+What is wrong? Way too many rerenders occur.
 
 # react-native info
 
