@@ -1,30 +1,46 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React from 'react';
-import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
+import {SafeAreaView, FlatList, StyleSheet, View, Text} from 'react-native';
 
-declare const global: {HermesInternal: null | {}};
+interface Item {
+  id: number;
+  key: string;
+  name: string;
+}
+
+const data: Item[] = [];
+
+for (let i = 0; i < 500; i++) {
+  data[i] = {
+    id: i,
+    key: `${i}`,
+    name: `item #${i}`,
+  };
+}
+
+function renderItem({item}: {item: Item}) {
+  console.log(`rendering ${item.key}`);
+
+  return (
+    <View style={styles.listItem}>
+      <Text>{item.name}</Text>
+    </View>
+  );
+}
 
 const App = () => {
   return (
-    <>
-      <SafeAreaView>
-        <View>
-          <Text>Test</Text>
-        </View>
-      </SafeAreaView>
-    </>
+    <SafeAreaView>
+      <FlatList data={data} renderItem={renderItem} />
+    </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  listItem: {
+    height: 40,
+    borderBottomColor: '#cccccc',
+    borderBottomWidth: 1,
+  },
+});
 
 export default App;
