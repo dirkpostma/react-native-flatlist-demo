@@ -17,20 +17,23 @@ for (let i = 0; i < 500; i++) {
   };
 }
 
-function renderItem({item}: {item: Item}) {
+const ListItem = React.memo(({item}: {item: Item}) => {
   console.log(`rendering ${item.key}`);
-
   return (
-    <View style={styles.listItem}>
+    <View key={item.key} style={styles.listItem}>
       <Text>{item.name}</Text>
     </View>
   );
+});
+
+function renderItem({item}: {item: Item}) {
+  return <ListItem item={item} />;
 }
 
 const App = () => {
   return (
     <SafeAreaView>
-      <FlatList data={data} renderItem={renderItem} />
+      <FlatList data={data} renderItem={renderItem} removeClippedSubviews />
     </SafeAreaView>
   );
 };
