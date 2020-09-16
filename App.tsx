@@ -1,46 +1,35 @@
 import React from 'react';
-import {SafeAreaView, FlatList, StyleSheet, View, Text} from 'react-native';
+import {FlatList, View, StyleSheet} from 'react-native';
 
-interface Item {
-  id: number;
-  key: string;
-  name: string;
-}
-
-const data: Item[] = [];
-
-for (let i = 0; i < 500; i++) {
-  data[i] = {
-    id: i,
-    key: `${i}`,
-    name: `item #${i}`,
-  };
-}
-
-const ListItem = React.memo(({item}: {item: Item}) => {
-  console.log(`rendering ${item.key}`);
-  return (
-    <View key={item.key} style={styles.listItem}>
-      <Text>{item.name}</Text>
-    </View>
-  );
-});
-
-function renderItem({item}: {item: Item}) {
-  return <ListItem item={item} />;
-}
+const generateData = (n = 10) => {
+  const data = [];
+  for (let i = 0; i < n; i++) {
+    data[i] = {
+      id: i,
+      key: `${i}`,
+      name: `item #${i}`,
+    };
+  }
+  return data;
+};
 
 const App = () => {
+  const data = generateData(20);
+
   return (
-    <SafeAreaView>
-      <FlatList data={data} renderItem={renderItem} removeClippedSubviews />
-    </SafeAreaView>
+    <FlatList
+      data={data}
+      renderItem={({index}) => {
+        console.log('renderItem', index);
+        return <View style={styles.listItem} />;
+      }}
+    />
   );
 };
 
 const styles = StyleSheet.create({
   listItem: {
-    height: 40,
+    height: 50,
     borderBottomColor: '#cccccc',
     borderBottomWidth: 1,
   },
